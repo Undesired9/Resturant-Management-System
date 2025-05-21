@@ -1,0 +1,60 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.Master.cs" Inherits="RestaurantManagement.SiteMaster" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Restaurant Management System</title>
+    <link href="Styles/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server">
+        <div class="header">
+            <h1>Restaurant Management System</h1>
+            <div style="float:right; display:flex; align-items:center; gap:1rem; margin-top:-2.5rem;">
+                <asp:Image ID="imgAvatar" runat="server" ImageUrl="~/Styles/default-avatar.png" Width="40" Height="40" Style="border-radius:50%; border:2px solid #3498db; background:#fff;" />
+                <asp:Label ID="lblUsername" runat="server" CssClass="username-label" />
+                <button id="darkModeToggle" class="btn btn-primary" type="button">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <div>
+            <asp:Menu ID="NavigationMenu" runat="server" CssClass="nav-menu">
+                <Items>
+                    <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home" />
+                    <asp:MenuItem NavigateUrl="~/MenuItems.aspx" Text="Menu Items" />
+                    <asp:MenuItem NavigateUrl="~/Orders.aspx" Text="Orders" />
+                    <asp:MenuItem NavigateUrl="~/Tables.aspx" Text="Tables" />
+                    <asp:MenuItem NavigateUrl="~/Staff.aspx" Text="Staff" />
+                    <asp:MenuItem NavigateUrl="~/Login.aspx" Text="Login" />
+                </Items>
+            </asp:Menu>
+        </div>
+        <div class="content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="footer">
+            <p>&copy; <%= DateTime.Now.Year %> Restaurant Management System</p>
+        </div>
+    </form>
+    <script type="text/javascript">
+        (function() {
+            var toggle = document.getElementById('darkModeToggle');
+            var body = document.body;
+            // Load preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                body.classList.add('dark-mode');
+            }
+            toggle.onclick = function() {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            };
+        })();
+    </script>
+</body>
+</html> 
